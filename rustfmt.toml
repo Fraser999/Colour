@@ -1,0 +1,12 @@
+condense_wildcard_suffices = true
+fn_call_width = 100
+fn_single_line = true
+ideal_width = 100
+newline_style = "Native"
+reorder_imports = true
+reorder_imported_names = true
+single_line_if_else_max_width = 100
+struct_lit_width = 100
+struct_variant_width = 100
+use_try_shorthand = true
+write_mode = "Overwrite"
