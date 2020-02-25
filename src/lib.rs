@@ -23,14 +23,18 @@
 //! `print!` or `println!`, but avoids interleaving of the output in a multi-threaded environment.
 
 #![forbid(warnings)]
-#![warn(missing_copy_implementations, trivial_casts, trivial_numeric_casts, unsafe_code,
-        unused_extern_crates, unused_import_braces, unused_qualifications, unused_results,
-        variant_size_differences)]
-#![cfg_attr(feature="cargo-clippy", deny(clippy, clippy_pedantic))]
-
-#[macro_use]
-extern crate lazy_static;
-extern crate term;
+#![warn(
+    missing_copy_implementations,
+    trivial_casts,
+    trivial_numeric_casts,
+    unsafe_code,
+    unused_extern_crates,
+    unused_import_braces,
+    unused_qualifications,
+    unused_results,
+    variant_size_differences
+)]
+#![deny(clippy::all, clippy::pedantic)]
 
 /// Helpers and consts which should not be used directly outside of this crate.
 #[doc(hidden)]
@@ -44,7 +48,7 @@ macro_rules! prnt_ln {
         $crate::unnamed::write(None, $arg, true);
     };
     ($($arg:tt)*) => {
-        #[cfg_attr(feature="cargo-clippy", allow(useless_format))]
+        #[allow(clippy::useless_format)]
         $crate::unnamed::write(None, &format!($($arg)*), true);
     };
 }
@@ -57,7 +61,7 @@ macro_rules! black_ln {
         $crate::unnamed::write(Some($crate::unnamed::BLACK), $arg, true);
     };
     ($($arg:tt)*) => {
-        #[cfg_attr(feature="cargo-clippy", allow(useless_format))]
+        #[allow(clippy::useless_format)]
         $crate::unnamed::write(Some($crate::unnamed::BLACK), &format!($($arg)*), true);
     };
 }
@@ -70,7 +74,7 @@ macro_rules! red_ln {
         $crate::unnamed::write(Some($crate::unnamed::RED), $arg, true);
     };
     ($($arg:tt)*) => {
-        #[cfg_attr(feature="cargo-clippy", allow(useless_format))]
+        #[allow(clippy::useless_format)]
         $crate::unnamed::write(Some($crate::unnamed::RED), &format!($($arg)*), true);
     };
 }
@@ -83,7 +87,7 @@ macro_rules! green_ln {
         $crate::unnamed::write(Some($crate::unnamed::GREEN), $arg, true);
     };
     ($($arg:tt)*) => {
-        #[cfg_attr(feature="cargo-clippy", allow(useless_format))]
+        #[allow(clippy::useless_format)]
         $crate::unnamed::write(Some($crate::unnamed::GREEN), &format!($($arg)*), true);
     };
 }
@@ -96,7 +100,7 @@ macro_rules! yellow_ln {
         $crate::unnamed::write(Some($crate::unnamed::YELLOW), $arg, true);
     };
     ($($arg:tt)*) => {
-        #[cfg_attr(feature="cargo-clippy", allow(useless_format))]
+        #[allow(clippy::useless_format)]
         $crate::unnamed::write(Some($crate::unnamed::YELLOW), &format!($($arg)*), true);
     };
 }
@@ -109,7 +113,7 @@ macro_rules! blue_ln {
         $crate::unnamed::write(Some($crate::unnamed::BLUE), $arg, true);
     };
     ($($arg:tt)*) => {
-        #[cfg_attr(feature="cargo-clippy", allow(useless_format))]
+        #[allow(clippy::useless_format)]
         $crate::unnamed::write(Some($crate::unnamed::BLUE), &format!($($arg)*), true);
     };
 }
@@ -122,7 +126,7 @@ macro_rules! magenta_ln {
         $crate::unnamed::write(Some($crate::unnamed::MAGENTA), $arg, true);
     };
     ($($arg:tt)*) => {
-        #[cfg_attr(feature="cargo-clippy", allow(useless_format))]
+        #[allow(clippy::useless_format)]
         $crate::unnamed::write(Some($crate::unnamed::MAGENTA), &format!($($arg)*), true);
     };
 }
@@ -135,7 +139,7 @@ macro_rules! cyan_ln {
         $crate::unnamed::write(Some($crate::unnamed::CYAN), $arg, true);
     };
     ($($arg:tt)*) => {
-        #[cfg_attr(feature="cargo-clippy", allow(useless_format))]
+        #[allow(clippy::useless_format)]
         $crate::unnamed::write(Some($crate::unnamed::CYAN), &format!($($arg)*), true);
     };
 }
@@ -148,7 +152,7 @@ macro_rules! white_ln {
         $crate::unnamed::write(Some($crate::unnamed::WHITE), $arg, true);
     };
     ($($arg:tt)*) => {
-        #[cfg_attr(feature="cargo-clippy", allow(useless_format))]
+        #[allow(clippy::useless_format)]
         $crate::unnamed::write(Some($crate::unnamed::WHITE), &format!($($arg)*), true);
     };
 }
@@ -161,7 +165,7 @@ macro_rules! dark_black_ln {
         $crate::unnamed::write(Some($crate::unnamed::DARK_BLACK), $arg, true);
     };
     ($($arg:tt)*) => {
-        #[cfg_attr(feature="cargo-clippy", allow(useless_format))]
+        #[allow(clippy::useless_format)]
         $crate::unnamed::write(Some($crate::unnamed::DARK_BLACK), &format!($($arg)*), true);
     };
 }
@@ -174,7 +178,7 @@ macro_rules! dark_red_ln {
         $crate::unnamed::write(Some($crate::unnamed::DARK_RED), $arg, true);
     };
     ($($arg:tt)*) => {
-        #[cfg_attr(feature="cargo-clippy", allow(useless_format))]
+        #[allow(clippy::useless_format)]
         $crate::unnamed::write(Some($crate::unnamed::DARK_RED), &format!($($arg)*), true);
     };
 }
@@ -187,7 +191,7 @@ macro_rules! dark_green_ln {
         $crate::unnamed::write(Some($crate::unnamed::DARK_GREEN), $arg, true);
     };
     ($($arg:tt)*) => {
-        #[cfg_attr(feature="cargo-clippy", allow(useless_format))]
+        #[allow(clippy::useless_format)]
         $crate::unnamed::write(Some($crate::unnamed::DARK_GREEN), &format!($($arg)*), true);
     };
 }
@@ -200,7 +204,7 @@ macro_rules! dark_yellow_ln {
         $crate::unnamed::write(Some($crate::unnamed::DARK_YELLOW), $arg, true);
     };
     ($($arg:tt)*) => {
-        #[cfg_attr(feature="cargo-clippy", allow(useless_format))]
+        #[allow(clippy::useless_format)]
         $crate::unnamed::write(Some($crate::unnamed::DARK_YELLOW), &format!($($arg)*), true);
     };
 }
@@ -213,7 +217,7 @@ macro_rules! dark_blue_ln {
         $crate::unnamed::write(Some($crate::unnamed::DARK_BLUE), $arg, true);
     };
     ($($arg:tt)*) => {
-        #[cfg_attr(feature="cargo-clippy", allow(useless_format))]
+        #[allow(clippy::useless_format)]
         $crate::unnamed::write(Some($crate::unnamed::DARK_BLUE), &format!($($arg)*), true);
     };
 }
@@ -226,7 +230,7 @@ macro_rules! dark_magenta_ln {
         $crate::unnamed::write(Some($crate::unnamed::DARK_MAGENTA), $arg, true);
     };
     ($($arg:tt)*) => {
-        #[cfg_attr(feature="cargo-clippy", allow(useless_format))]
+        #[allow(clippy::useless_format)]
         $crate::unnamed::write(Some($crate::unnamed::DARK_MAGENTA), &format!($($arg)*), true);
     };
 }
@@ -239,7 +243,7 @@ macro_rules! dark_cyan_ln {
         $crate::unnamed::write(Some($crate::unnamed::DARK_CYAN), $arg, true);
     };
     ($($arg:tt)*) => {
-        #[cfg_attr(feature="cargo-clippy", allow(useless_format))]
+        #[allow(clippy::useless_format)]
         $crate::unnamed::write(Some($crate::unnamed::DARK_CYAN), &format!($($arg)*), true);
     };
 }
@@ -252,7 +256,7 @@ macro_rules! dark_white_ln {
         $crate::unnamed::write(Some($crate::unnamed::DARK_WHITE), $arg, true);
     };
     ($($arg:tt)*) => {
-        #[cfg_attr(feature="cargo-clippy", allow(useless_format))]
+        #[allow(clippy::useless_format)]
         $crate::unnamed::write(Some($crate::unnamed::DARK_WHITE), &format!($($arg)*), true);
     };
 }
@@ -265,7 +269,7 @@ macro_rules! prnt {
         $crate::unnamed::write(None, $arg, false);
     };
     ($($arg:tt)*) => {
-        #[cfg_attr(feature="cargo-clippy", allow(useless_format))]
+        #[allow(clippy::useless_format)]
         $crate::unnamed::write(None, &format!($($arg)*), false);
     };
 }
@@ -278,7 +282,7 @@ macro_rules! black {
         $crate::unnamed::write(Some($crate::unnamed::BLACK), $arg, false);
     };
     ($($arg:tt)*) => {
-        #[cfg_attr(feature="cargo-clippy", allow(useless_format))]
+        #[allow(clippy::useless_format)]
         $crate::unnamed::write(Some($crate::unnamed::BLACK), &format!($($arg)*), false);
     };
 }
@@ -291,7 +295,7 @@ macro_rules! red {
         $crate::unnamed::write(Some($crate::unnamed::RED), $arg, false);
     };
     ($($arg:tt)*) => {
-        #[cfg_attr(feature="cargo-clippy", allow(useless_format))]
+        #[allow(clippy::useless_format)]
         $crate::unnamed::write(Some($crate::unnamed::RED), &format!($($arg)*), false);
     };
 }
@@ -304,7 +308,7 @@ macro_rules! green {
         $crate::unnamed::write(Some($crate::unnamed::GREEN), $arg, false);
     };
     ($($arg:tt)*) => {
-        #[cfg_attr(feature="cargo-clippy", allow(useless_format))]
+        #[allow(clippy::useless_format)]
         $crate::unnamed::write(Some($crate::unnamed::GREEN), &format!($($arg)*), false);
     };
 }
@@ -317,7 +321,7 @@ macro_rules! yellow {
         $crate::unnamed::write(Some($crate::unnamed::YELLOW), $arg, false);
     };
     ($($arg:tt)*) => {
-        #[cfg_attr(feature="cargo-clippy", allow(useless_format))]
+        #[allow(clippy::useless_format)]
         $crate::unnamed::write(Some($crate::unnamed::YELLOW), &format!($($arg)*), false);
     };
 }
@@ -330,7 +334,7 @@ macro_rules! blue {
         $crate::unnamed::write(Some($crate::unnamed::BLUE), $arg, false);
     };
     ($($arg:tt)*) => {
-        #[cfg_attr(feature="cargo-clippy", allow(useless_format))]
+        #[allow(clippy::useless_format)]
         $crate::unnamed::write(Some($crate::unnamed::BLUE), &format!($($arg)*), false);
     };
 }
@@ -343,7 +347,7 @@ macro_rules! magenta {
         $crate::unnamed::write(Some($crate::unnamed::MAGENTA), $arg, false);
     };
     ($($arg:tt)*) => {
-        #[cfg_attr(feature="cargo-clippy", allow(useless_format))]
+        #[allow(clippy::useless_format)]
         $crate::unnamed::write(Some($crate::unnamed::MAGENTA), &format!($($arg)*), false);
     };
 }
@@ -356,7 +360,7 @@ macro_rules! cyan {
         $crate::unnamed::write(Some($crate::unnamed::CYAN), $arg, false);
     };
     ($($arg:tt)*) => {
-        #[cfg_attr(feature="cargo-clippy", allow(useless_format))]
+        #[allow(clippy::useless_format)]
         $crate::unnamed::write(Some($crate::unnamed::CYAN), &format!($($arg)*), false);
     };
 }
@@ -369,7 +373,7 @@ macro_rules! white {
         $crate::unnamed::write(Some($crate::unnamed::WHITE), $arg, false);
     };
     ($($arg:tt)*) => {
-        #[cfg_attr(feature="cargo-clippy", allow(useless_format))]
+        #[allow(clippy::useless_format)]
         $crate::unnamed::write(Some($crate::unnamed::WHITE), &format!($($arg)*), false);
     };
 }
@@ -382,7 +386,7 @@ macro_rules! dark_black {
         $crate::unnamed::write(Some($crate::unnamed::DARK_BLACK), $arg, false);
     };
     ($($arg:tt)*) => {
-        #[cfg_attr(feature="cargo-clippy", allow(useless_format))]
+        #[allow(clippy::useless_format)]
         $crate::unnamed::write(Some($crate::unnamed::DARK_BLACK), &format!($($arg)*), false);
     };
 }
@@ -395,7 +399,7 @@ macro_rules! dark_red {
         $crate::unnamed::write(Some($crate::unnamed::DARK_RED), $arg, false);
     };
     ($($arg:tt)*) => {
-        #[cfg_attr(feature="cargo-clippy", allow(useless_format))]
+        #[allow(clippy::useless_format)]
         $crate::unnamed::write(Some($crate::unnamed::DARK_RED), &format!($($arg)*), false);
     };
 }
@@ -408,7 +412,7 @@ macro_rules! dark_green {
         $crate::unnamed::write(Some($crate::unnamed::DARK_GREEN), $arg, false);
     };
     ($($arg:tt)*) => {
-        #[cfg_attr(feature="cargo-clippy", allow(useless_format))]
+        #[allow(clippy::useless_format)]
         $crate::unnamed::write(Some($crate::unnamed::DARK_GREEN), &format!($($arg)*), false);
     };
 }
@@ -421,7 +425,7 @@ macro_rules! dark_yellow {
         $crate::unnamed::write(Some($crate::unnamed::DARK_YELLOW), $arg, false);
     };
     ($($arg:tt)*) => {
-        #[cfg_attr(feature="cargo-clippy", allow(useless_format))]
+        #[allow(clippy::useless_format)]
         $crate::unnamed::write(Some($crate::unnamed::DARK_YELLOW), &format!($($arg)*), false);
     };
 }
@@ -434,7 +438,7 @@ macro_rules! dark_blue {
         $crate::unnamed::write(Some($crate::unnamed::DARK_BLUE), $arg, false);
     };
     ($($arg:tt)*) => {
-        #[cfg_attr(feature="cargo-clippy", allow(useless_format))]
+        #[allow(clippy::useless_format)]
         $crate::unnamed::write(Some($crate::unnamed::DARK_BLUE), &format!($($arg)*), false);
     };
 }
@@ -447,7 +451,7 @@ macro_rules! dark_magenta {
         $crate::unnamed::write(Some($crate::unnamed::DARK_MAGENTA), $arg, false);
     };
     ($($arg:tt)*) => {
-        #[cfg_attr(feature="cargo-clippy", allow(useless_format))]
+        #[allow(clippy::useless_format)]
         $crate::unnamed::write(Some($crate::unnamed::DARK_MAGENTA), &format!($($arg)*), false);
     };
 }
@@ -460,7 +464,7 @@ macro_rules! dark_cyan {
         $crate::unnamed::write(Some($crate::unnamed::DARK_CYAN), $arg, false);
     };
     ($($arg:tt)*) => {
-        #[cfg_attr(feature="cargo-clippy", allow(useless_format))]
+        #[allow(clippy::useless_format)]
         $crate::unnamed::write(Some($crate::unnamed::DARK_CYAN), &format!($($arg)*), false);
     };
 }
@@ -473,7 +477,7 @@ macro_rules! dark_white {
         $crate::unnamed::write(Some($crate::unnamed::DARK_WHITE), $arg, false);
     };
     ($($arg:tt)*) => {
-        #[cfg_attr(feature="cargo-clippy", allow(useless_format))]
+        #[allow(clippy::useless_format)]
         $crate::unnamed::write(Some($crate::unnamed::DARK_WHITE), &format!($($arg)*), false);
     };
 }

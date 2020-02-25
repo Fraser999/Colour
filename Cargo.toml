@@ -3,13 +3,14 @@ authors = ["Fraser Hutchison <fraser.hutchison@maidsafe.net>"]
 categories = ["command-line-interface"]
 description = "Macros for creating coloured console output."
 documentation = "https://docs.rs/colour"
+edition = "2018"
 keywords = ["color", "colour", "print", "terminal", "console"]
 license = "GPL-3.0"
 name = "colour"
 readme = "README.md"
 repository = "https://github.com/Fraser999/Colour.git"
-version = "0.3.0"
+version = "0.3.1"
 
 [dependencies]
 lazy_static = "1"
-term = "0.5"
+term = "0.6.1"

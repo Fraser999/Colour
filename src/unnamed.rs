@@ -1,12 +1,14 @@
-use std::io::Write;
-use std::sync::Mutex;
-use term::{self, StdoutTerminal, color};
+use lazy_static::lazy_static;
+use std::{io::Write, sync::Mutex};
+use term::{self, color, StdoutTerminal};
 
 /// Wrapper for `StdoutTerminal` which resets stdout when dropped, even if panicking.
 struct StdOut(pub Box<StdoutTerminal>);
 
 impl Drop for StdOut {
-    fn drop(&mut self) { self.reset() }
+    fn drop(&mut self) {
+        self.reset()
+    }
 }
 
 impl StdOut {
@@ -15,7 +17,9 @@ impl StdOut {
         self.flush();
     }
 
-    pub fn flush(&mut self) { let _ = self.0.get_mut().flush(); }
+    pub fn flush(&mut self) {
+        let _ = self.0.get_mut().flush();
+    }
 }
 
 lazy_static! {
@@ -34,11 +38,11 @@ pub const CYAN: Colour = color::BRIGHT_CYAN;
 pub const WHITE: Colour = color::BRIGHT_WHITE;
 
 pub const DARK_BLACK: Colour = color::BLACK;
-pub const DARK_RED: Colour = 1;
+pub const DARK_RED: Colour = color::RED;
 pub const DARK_GREEN: Colour = color::GREEN;
 pub const DARK_YELLOW: Colour = color::YELLOW;
 pub const DARK_BLUE: Colour = color::BLUE;
-pub const DARK_MAGENTA: Colour = 5;
+pub const DARK_MAGENTA: Colour = color::MAGENTA;
 pub const DARK_CYAN: Colour = color::CYAN;
 pub const DARK_WHITE: Colour = color::WHITE;
 

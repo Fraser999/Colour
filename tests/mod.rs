@@ -1,11 +1,18 @@
 #![forbid(warnings)]
-#![warn(missing_copy_implementations, trivial_casts, trivial_numeric_casts, unsafe_code,
-        unused_extern_crates, unused_import_braces, unused_qualifications, unused_results,
-        variant_size_differences)]
-#![cfg_attr(feature="cargo-clippy", deny(clippy, clippy_pedantic))]
+#![warn(
+    missing_copy_implementations,
+    trivial_casts,
+    trivial_numeric_casts,
+    unsafe_code,
+    unused_extern_crates,
+    unused_import_braces,
+    unused_qualifications,
+    unused_results,
+    variant_size_differences
+)]
+#![deny(clippy::all, clippy::pedantic)]
 
-#[macro_use]
-extern crate colour;
+use colour::*;
 
 #[test]
 fn colours() {
