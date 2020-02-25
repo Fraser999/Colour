@@ -58,12 +58,6 @@ fn all_colours() {
 }
 ```
 
-## Performance
-
-Internally, the macros use a global static handle to stdout which is locked on each call.  At
-the end of each call, stdout is flushed.  This results in slower performance compared to
-`print!` or `println!`, but avoids interleaving of the output in a multi-threaded environment.
-
 ##  License
 
 `colour` is distributed under the terms of the General Public License (GPL), version 3

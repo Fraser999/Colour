@@ -17,10 +17,6 @@
 //!
 //! There are also `prnt!` and `prnt_ln!` available which print using the current default foreground
 //! colour.
-//!
-//! Internally, the macros use a global static handle to stdout which is locked on each call.  At
-//! the end of each call, stdout is flushed.  This results in slower performance compared to
-//! `print!` or `println!`, but avoids interleaving of the output in a multi-threaded environment.
 
 #![forbid(warnings)]
 #![warn(
@@ -53,16 +49,16 @@ macro_rules! prnt_ln {
     };
 }
 
-/// Macro similar to [`println!`](https://doc.servo.org/std/macro.println.html) using black as the
+/// Macro similar to [`println!`](https://doc.servo.org/std/macro.println.html) using grey as the
 /// foreground colour.
 #[macro_export]
-macro_rules! black_ln {
+macro_rules! grey_ln {
     ($arg:tt) => {
-        $crate::unnamed::write(Some($crate::unnamed::BLACK), $arg, true);
+        $crate::unnamed::write(Some($crate::unnamed::Colour::Grey), $arg, true);
     };
     ($($arg:tt)*) => {
         #[allow(clippy::useless_format)]
-        $crate::unnamed::write(Some($crate::unnamed::BLACK), &format!($($arg)*), true);
+        $crate::unnamed::write(Some($crate::unnamed::Colour::Grey), &format!($($arg)*), true);
     };
 }
 
@@ -71,11 +67,11 @@ macro_rules! black_ln {
 #[macro_export]
 macro_rules! red_ln {
     ($arg:tt) => {
-        $crate::unnamed::write(Some($crate::unnamed::RED), $arg, true);
+        $crate::unnamed::write(Some($crate::unnamed::Colour::Red), $arg, true);
     };
     ($($arg:tt)*) => {
         #[allow(clippy::useless_format)]
-        $crate::unnamed::write(Some($crate::unnamed::RED), &format!($($arg)*), true);
+        $crate::unnamed::write(Some($crate::unnamed::Colour::Red), &format!($($arg)*), true);
     };
 }
 
@@ -84,11 +80,11 @@ macro_rules! red_ln {
 #[macro_export]
 macro_rules! green_ln {
     ($arg:tt) => {
-        $crate::unnamed::write(Some($crate::unnamed::GREEN), $arg, true);
+        $crate::unnamed::write(Some($crate::unnamed::Colour::Green), $arg, true);
     };
     ($($arg:tt)*) => {
         #[allow(clippy::useless_format)]
-        $crate::unnamed::write(Some($crate::unnamed::GREEN), &format!($($arg)*), true);
+        $crate::unnamed::write(Some($crate::unnamed::Colour::Green), &format!($($arg)*), true);
     };
 }
 
@@ -97,11 +93,11 @@ macro_rules! green_ln {
 #[macro_export]
 macro_rules! yellow_ln {
     ($arg:tt) => {
-        $crate::unnamed::write(Some($crate::unnamed::YELLOW), $arg, true);
+        $crate::unnamed::write(Some($crate::unnamed::Colour::Yellow), $arg, true);
     };
     ($($arg:tt)*) => {
         #[allow(clippy::useless_format)]
-        $crate::unnamed::write(Some($crate::unnamed::YELLOW), &format!($($arg)*), true);
+        $crate::unnamed::write(Some($crate::unnamed::Colour::Yellow), &format!($($arg)*), true);
     };
 }
 
@@ -110,11 +106,11 @@ macro_rules! yellow_ln {
 #[macro_export]
 macro_rules! blue_ln {
     ($arg:tt) => {
-        $crate::unnamed::write(Some($crate::unnamed::BLUE), $arg, true);
+        $crate::unnamed::write(Some($crate::unnamed::Colour::Blue), $arg, true);
     };
     ($($arg:tt)*) => {
         #[allow(clippy::useless_format)]
-        $crate::unnamed::write(Some($crate::unnamed::BLUE), &format!($($arg)*), true);
+        $crate::unnamed::write(Some($crate::unnamed::Colour::Blue), &format!($($arg)*), true);
     };
 }
 
@@ -123,11 +119,11 @@ macro_rules! blue_ln {
 #[macro_export]
 macro_rules! magenta_ln {
     ($arg:tt) => {
-        $crate::unnamed::write(Some($crate::unnamed::MAGENTA), $arg, true);
+        $crate::unnamed::write(Some($crate::unnamed::Colour::Magenta), $arg, true);
     };
     ($($arg:tt)*) => {
         #[allow(clippy::useless_format)]
-        $crate::unnamed::write(Some($crate::unnamed::MAGENTA), &format!($($arg)*), true);
+        $crate::unnamed::write(Some($crate::unnamed::Colour::Magenta), &format!($($arg)*), true);
     };
 }
 
@@ -136,11 +132,11 @@ macro_rules! magenta_ln {
 #[macro_export]
 macro_rules! cyan_ln {
     ($arg:tt) => {
-        $crate::unnamed::write(Some($crate::unnamed::CYAN), $arg, true);
+        $crate::unnamed::write(Some($crate::unnamed::Colour::Cyan), $arg, true);
     };
     ($($arg:tt)*) => {
         #[allow(clippy::useless_format)]
-        $crate::unnamed::write(Some($crate::unnamed::CYAN), &format!($($arg)*), true);
+        $crate::unnamed::write(Some($crate::unnamed::Colour::Cyan), &format!($($arg)*), true);
     };
 }
 
@@ -149,24 +145,37 @@ macro_rules! cyan_ln {
 #[macro_export]
 macro_rules! white_ln {
     ($arg:tt) => {
-        $crate::unnamed::write(Some($crate::unnamed::WHITE), $arg, true);
+        $crate::unnamed::write(Some($crate::unnamed::Colour::White), $arg, true);
     };
     ($($arg:tt)*) => {
         #[allow(clippy::useless_format)]
-        $crate::unnamed::write(Some($crate::unnamed::WHITE), &format!($($arg)*), true);
+        $crate::unnamed::write(Some($crate::unnamed::Colour::White), &format!($($arg)*), true);
     };
 }
 
-/// Macro similar to [`println!`](https://doc.servo.org/std/macro.println.html) using dark black as
-/// the foreground colour.
+/// Macro similar to [`println!`](https://doc.servo.org/std/macro.println.html) using black as the
+/// foreground colour.
 #[macro_export]
-macro_rules! dark_black_ln {
+macro_rules! black_ln {
     ($arg:tt) => {
-        $crate::unnamed::write(Some($crate::unnamed::DARK_BLACK), $arg, true);
+        $crate::unnamed::write(Some($crate::unnamed::Colour::Black), $arg, true);
     };
     ($($arg:tt)*) => {
         #[allow(clippy::useless_format)]
-        $crate::unnamed::write(Some($crate::unnamed::DARK_BLACK), &format!($($arg)*), true);
+        $crate::unnamed::write(Some($crate::unnamed::Colour::Black), &format!($($arg)*), true);
+    };
+}
+
+/// Macro similar to [`println!`](https://doc.servo.org/std/macro.println.html) using dark grey as
+/// the foreground colour.
+#[macro_export]
+macro_rules! dark_grey_ln {
+    ($arg:tt) => {
+        $crate::unnamed::write(Some($crate::unnamed::Colour::DarkGrey), $arg, true);
+    };
+    ($($arg:tt)*) => {
+        #[allow(clippy::useless_format)]
+        $crate::unnamed::write(Some($crate::unnamed::Colour::DarkGrey), &format!($($arg)*), true);
     };
 }
 
@@ -175,11 +184,11 @@ macro_rules! dark_black_ln {
 #[macro_export]
 macro_rules! dark_red_ln {
     ($arg:tt) => {
-        $crate::unnamed::write(Some($crate::unnamed::DARK_RED), $arg, true);
+        $crate::unnamed::write(Some($crate::unnamed::Colour::DarkRed), $arg, true);
     };
     ($($arg:tt)*) => {
         #[allow(clippy::useless_format)]
-        $crate::unnamed::write(Some($crate::unnamed::DARK_RED), &format!($($arg)*), true);
+        $crate::unnamed::write(Some($crate::unnamed::Colour::DarkRed), &format!($($arg)*), true);
     };
 }
 
@@ -188,11 +197,11 @@ macro_rules! dark_red_ln {
 #[macro_export]
 macro_rules! dark_green_ln {
     ($arg:tt) => {
-        $crate::unnamed::write(Some($crate::unnamed::DARK_GREEN), $arg, true);
+        $crate::unnamed::write(Some($crate::unnamed::Colour::DarkGreen), $arg, true);
     };
     ($($arg:tt)*) => {
         #[allow(clippy::useless_format)]
-        $crate::unnamed::write(Some($crate::unnamed::DARK_GREEN), &format!($($arg)*), true);
+        $crate::unnamed::write(Some($crate::unnamed::Colour::DarkGreen), &format!($($arg)*), true);
     };
 }
 
@@ -201,11 +210,11 @@ macro_rules! dark_green_ln {
 #[macro_export]
 macro_rules! dark_yellow_ln {
     ($arg:tt) => {
-        $crate::unnamed::write(Some($crate::unnamed::DARK_YELLOW), $arg, true);
+        $crate::unnamed::write(Some($crate::unnamed::Colour::DarkYellow), $arg, true);
     };
     ($($arg:tt)*) => {
         #[allow(clippy::useless_format)]
-        $crate::unnamed::write(Some($crate::unnamed::DARK_YELLOW), &format!($($arg)*), true);
+        $crate::unnamed::write(Some($crate::unnamed::Colour::DarkYellow), &format!($($arg)*), true);
     };
 }
 
@@ -214,11 +223,11 @@ macro_rules! dark_yellow_ln {
 #[macro_export]
 macro_rules! dark_blue_ln {
     ($arg:tt) => {
-        $crate::unnamed::write(Some($crate::unnamed::DARK_BLUE), $arg, true);
+        $crate::unnamed::write(Some($crate::unnamed::Colour::DarkBlue), $arg, true);
     };
     ($($arg:tt)*) => {
         #[allow(clippy::useless_format)]
-        $crate::unnamed::write(Some($crate::unnamed::DARK_BLUE), &format!($($arg)*), true);
+        $crate::unnamed::write(Some($crate::unnamed::Colour::DarkBlue), &format!($($arg)*), true);
     };
 }
 
@@ -227,11 +236,11 @@ macro_rules! dark_blue_ln {
 #[macro_export]
 macro_rules! dark_magenta_ln {
     ($arg:tt) => {
-        $crate::unnamed::write(Some($crate::unnamed::DARK_MAGENTA), $arg, true);
+        $crate::unnamed::write(Some($crate::unnamed::Colour::DarkMagenta), $arg, true);
     };
     ($($arg:tt)*) => {
         #[allow(clippy::useless_format)]
-        $crate::unnamed::write(Some($crate::unnamed::DARK_MAGENTA), &format!($($arg)*), true);
+        $crate::unnamed::write(Some($crate::unnamed::Colour::DarkMagenta), &format!($($arg)*), true);
     };
 }
 
@@ -240,24 +249,11 @@ macro_rules! dark_magenta_ln {
 #[macro_export]
 macro_rules! dark_cyan_ln {
     ($arg:tt) => {
-        $crate::unnamed::write(Some($crate::unnamed::DARK_CYAN), $arg, true);
+        $crate::unnamed::write(Some($crate::unnamed::Colour::DarkCyan), $arg, true);
     };
     ($($arg:tt)*) => {
         #[allow(clippy::useless_format)]
-        $crate::unnamed::write(Some($crate::unnamed::DARK_CYAN), &format!($($arg)*), true);
-    };
-}
-
-/// Macro similar to [`println!`](https://doc.servo.org/std/macro.println.html) using dark white as
-/// the foreground colour.
-#[macro_export]
-macro_rules! dark_white_ln {
-    ($arg:tt) => {
-        $crate::unnamed::write(Some($crate::unnamed::DARK_WHITE), $arg, true);
-    };
-    ($($arg:tt)*) => {
-        #[allow(clippy::useless_format)]
-        $crate::unnamed::write(Some($crate::unnamed::DARK_WHITE), &format!($($arg)*), true);
+        $crate::unnamed::write(Some($crate::unnamed::Colour::DarkCyan), &format!($($arg)*), true);
     };
 }
 
@@ -274,16 +270,16 @@ macro_rules! prnt {
     };
 }
 
-/// Macro similar to [`print!`](https://doc.servo.org/std/macro.print.html) using black as the
+/// Macro similar to [`print!`](https://doc.servo.org/std/macro.print.html) using grey as the
 /// foreground colour.
 #[macro_export]
-macro_rules! black {
+macro_rules! grey {
     ($arg:tt) => {
-        $crate::unnamed::write(Some($crate::unnamed::BLACK), $arg, false);
+        $crate::unnamed::write(Some($crate::unnamed::Colour::Grey), $arg, false);
     };
     ($($arg:tt)*) => {
         #[allow(clippy::useless_format)]
-        $crate::unnamed::write(Some($crate::unnamed::BLACK), &format!($($arg)*), false);
+        $crate::unnamed::write(Some($crate::unnamed::Colour::Grey), &format!($($arg)*), false);
     };
 }
 
@@ -292,11 +288,11 @@ macro_rules! black {
 #[macro_export]
 macro_rules! red {
     ($arg:tt) => {
-        $crate::unnamed::write(Some($crate::unnamed::RED), $arg, false);
+        $crate::unnamed::write(Some($crate::unnamed::Colour::Red), $arg, false);
     };
     ($($arg:tt)*) => {
         #[allow(clippy::useless_format)]
-        $crate::unnamed::write(Some($crate::unnamed::RED), &format!($($arg)*), false);
+        $crate::unnamed::write(Some($crate::unnamed::Colour::Red), &format!($($arg)*), false);
     };
 }
 
@@ -305,11 +301,11 @@ macro_rules! red {
 #[macro_export]
 macro_rules! green {
     ($arg:tt) => {
-        $crate::unnamed::write(Some($crate::unnamed::GREEN), $arg, false);
+        $crate::unnamed::write(Some($crate::unnamed::Colour::Green), $arg, false);
     };
     ($($arg:tt)*) => {
         #[allow(clippy::useless_format)]
-        $crate::unnamed::write(Some($crate::unnamed::GREEN), &format!($($arg)*), false);
+        $crate::unnamed::write(Some($crate::unnamed::Colour::Green), &format!($($arg)*), false);
     };
 }
 
@@ -318,11 +314,11 @@ macro_rules! green {
 #[macro_export]
 macro_rules! yellow {
     ($arg:tt) => {
-        $crate::unnamed::write(Some($crate::unnamed::YELLOW), $arg, false);
+        $crate::unnamed::write(Some($crate::unnamed::Colour::Yellow), $arg, false);
     };
     ($($arg:tt)*) => {
         #[allow(clippy::useless_format)]
-        $crate::unnamed::write(Some($crate::unnamed::YELLOW), &format!($($arg)*), false);
+        $crate::unnamed::write(Some($crate::unnamed::Colour::Yellow), &format!($($arg)*), false);
     };
 }
 
@@ -331,11 +327,11 @@ macro_rules! yellow {
 #[macro_export]
 macro_rules! blue {
     ($arg:tt) => {
-        $crate::unnamed::write(Some($crate::unnamed::BLUE), $arg, false);
+        $crate::unnamed::write(Some($crate::unnamed::Colour::Blue), $arg, false);
     };
     ($($arg:tt)*) => {
         #[allow(clippy::useless_format)]
-        $crate::unnamed::write(Some($crate::unnamed::BLUE), &format!($($arg)*), false);
+        $crate::unnamed::write(Some($crate::unnamed::Colour::Blue), &format!($($arg)*), false);
     };
 }
 
@@ -344,11 +340,11 @@ macro_rules! blue {
 #[macro_export]
 macro_rules! magenta {
     ($arg:tt) => {
-        $crate::unnamed::write(Some($crate::unnamed::MAGENTA), $arg, false);
+        $crate::unnamed::write(Some($crate::unnamed::Colour::Magenta), $arg, false);
     };
     ($($arg:tt)*) => {
         #[allow(clippy::useless_format)]
-        $crate::unnamed::write(Some($crate::unnamed::MAGENTA), &format!($($arg)*), false);
+        $crate::unnamed::write(Some($crate::unnamed::Colour::Magenta), &format!($($arg)*), false);
     };
 }
 
@@ -357,11 +353,11 @@ macro_rules! magenta {
 #[macro_export]
 macro_rules! cyan {
     ($arg:tt) => {
-        $crate::unnamed::write(Some($crate::unnamed::CYAN), $arg, false);
+        $crate::unnamed::write(Some($crate::unnamed::Colour::Cyan), $arg, false);
     };
     ($($arg:tt)*) => {
         #[allow(clippy::useless_format)]
-        $crate::unnamed::write(Some($crate::unnamed::CYAN), &format!($($arg)*), false);
+        $crate::unnamed::write(Some($crate::unnamed::Colour::Cyan), &format!($($arg)*), false);
     };
 }
 
@@ -370,24 +366,37 @@ macro_rules! cyan {
 #[macro_export]
 macro_rules! white {
     ($arg:tt) => {
-        $crate::unnamed::write(Some($crate::unnamed::WHITE), $arg, false);
+        $crate::unnamed::write(Some($crate::unnamed::Colour::White), $arg, false);
     };
     ($($arg:tt)*) => {
         #[allow(clippy::useless_format)]
-        $crate::unnamed::write(Some($crate::unnamed::WHITE), &format!($($arg)*), false);
+        $crate::unnamed::write(Some($crate::unnamed::Colour::White), &format!($($arg)*), false);
     };
 }
 
-/// Macro similar to [`print!`](https://doc.servo.org/std/macro.print.html) using dark black as the
+/// Macro similar to [`print!`](https://doc.servo.org/std/macro.print.html) using black as the
 /// foreground colour.
 #[macro_export]
-macro_rules! dark_black {
+macro_rules! black {
     ($arg:tt) => {
-        $crate::unnamed::write(Some($crate::unnamed::DARK_BLACK), $arg, false);
+        $crate::unnamed::write(Some($crate::unnamed::Colour::Black), $arg, false);
     };
     ($($arg:tt)*) => {
         #[allow(clippy::useless_format)]
-        $crate::unnamed::write(Some($crate::unnamed::DARK_BLACK), &format!($($arg)*), false);
+        $crate::unnamed::write(Some($crate::unnamed::Colour::Black), &format!($($arg)*), false);
+    };
+}
+
+/// Macro similar to [`print!`](https://doc.servo.org/std/macro.print.html) using dark grey as the
+/// foreground colour.
+#[macro_export]
+macro_rules! dark_grey {
+    ($arg:tt) => {
+        $crate::unnamed::write(Some($crate::unnamed::Colour::DarkGrey), $arg, false);
+    };
+    ($($arg:tt)*) => {
+        #[allow(clippy::useless_format)]
+        $crate::unnamed::write(Some($crate::unnamed::Colour::DarkGrey), &format!($($arg)*), false);
     };
 }
 
@@ -396,11 +405,11 @@ macro_rules! dark_black {
 #[macro_export]
 macro_rules! dark_red {
     ($arg:tt) => {
-        $crate::unnamed::write(Some($crate::unnamed::DARK_RED), $arg, false);
+        $crate::unnamed::write(Some($crate::unnamed::Colour::DarkRed), $arg, false);
     };
     ($($arg:tt)*) => {
         #[allow(clippy::useless_format)]
-        $crate::unnamed::write(Some($crate::unnamed::DARK_RED), &format!($($arg)*), false);
+        $crate::unnamed::write(Some($crate::unnamed::Colour::DarkRed), &format!($($arg)*), false);
     };
 }
 
@@ -409,11 +418,11 @@ macro_rules! dark_red {
 #[macro_export]
 macro_rules! dark_green {
     ($arg:tt) => {
-        $crate::unnamed::write(Some($crate::unnamed::DARK_GREEN), $arg, false);
+        $crate::unnamed::write(Some($crate::unnamed::Colour::DarkGreen), $arg, false);
     };
     ($($arg:tt)*) => {
         #[allow(clippy::useless_format)]
-        $crate::unnamed::write(Some($crate::unnamed::DARK_GREEN), &format!($($arg)*), false);
+        $crate::unnamed::write(Some($crate::unnamed::Colour::DarkGreen), &format!($($arg)*), false);
     };
 }
 
@@ -422,11 +431,11 @@ macro_rules! dark_green {
 #[macro_export]
 macro_rules! dark_yellow {
     ($arg:tt) => {
-        $crate::unnamed::write(Some($crate::unnamed::DARK_YELLOW), $arg, false);
+        $crate::unnamed::write(Some($crate::unnamed::Colour::DarkYellow), $arg, false);
     };
     ($($arg:tt)*) => {
         #[allow(clippy::useless_format)]
-        $crate::unnamed::write(Some($crate::unnamed::DARK_YELLOW), &format!($($arg)*), false);
+        $crate::unnamed::write(Some($crate::unnamed::Colour::DarkYellow), &format!($($arg)*), false);
     };
 }
 
@@ -435,11 +444,11 @@ macro_rules! dark_yellow {
 #[macro_export]
 macro_rules! dark_blue {
     ($arg:tt) => {
-        $crate::unnamed::write(Some($crate::unnamed::DARK_BLUE), $arg, false);
+        $crate::unnamed::write(Some($crate::unnamed::Colour::DarkBlue), $arg, false);
     };
     ($($arg:tt)*) => {
         #[allow(clippy::useless_format)]
-        $crate::unnamed::write(Some($crate::unnamed::DARK_BLUE), &format!($($arg)*), false);
+        $crate::unnamed::write(Some($crate::unnamed::Colour::DarkBlue), &format!($($arg)*), false);
     };
 }
 
@@ -448,11 +457,11 @@ macro_rules! dark_blue {
 #[macro_export]
 macro_rules! dark_magenta {
     ($arg:tt) => {
-        $crate::unnamed::write(Some($crate::unnamed::DARK_MAGENTA), $arg, false);
+        $crate::unnamed::write(Some($crate::unnamed::Colour::DarkMagenta), $arg, false);
     };
     ($($arg:tt)*) => {
         #[allow(clippy::useless_format)]
-        $crate::unnamed::write(Some($crate::unnamed::DARK_MAGENTA), &format!($($arg)*), false);
+        $crate::unnamed::write(Some($crate::unnamed::Colour::DarkMagenta), &format!($($arg)*), false);
     };
 }
 
@@ -461,23 +470,10 @@ macro_rules! dark_magenta {
 #[macro_export]
 macro_rules! dark_cyan {
     ($arg:tt) => {
-        $crate::unnamed::write(Some($crate::unnamed::DARK_CYAN), $arg, false);
+        $crate::unnamed::write(Some($crate::unnamed::Colour::DarkCyan), $arg, false);
     };
     ($($arg:tt)*) => {
         #[allow(clippy::useless_format)]
-        $crate::unnamed::write(Some($crate::unnamed::DARK_CYAN), &format!($($arg)*), false);
-    };
-}
-
-/// Macro similar to [`print!`](https://doc.servo.org/std/macro.print.html) using dark white as the
-/// foreground colour.
-#[macro_export]
-macro_rules! dark_white {
-    ($arg:tt) => {
-        $crate::unnamed::write(Some($crate::unnamed::DARK_WHITE), $arg, false);
-    };
-    ($($arg:tt)*) => {
-        #[allow(clippy::useless_format)]
-        $crate::unnamed::write(Some($crate::unnamed::DARK_WHITE), &format!($($arg)*), false);
+        $crate::unnamed::write(Some($crate::unnamed::Colour::DarkCyan), &format!($($arg)*), false);
     };
 }
