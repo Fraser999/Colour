@@ -15,7 +15,7 @@
 use colour::*;
 
 #[test]
-fn colours() {
+fn stdout() {
     grey_ln!("This is {}.", "grey");
     grey_ln!("So is this.");
     dark_grey_ln!("This is {}.", "dark_grey");
@@ -85,4 +85,77 @@ fn colours() {
     black!("{}, ", "lack");
     prnt!("d");
     prnt!("efault {}", "colour\n\n");
+}
+
+#[test]
+fn stderr() {
+    e_grey_ln!("This is {}.", "grey");
+    e_grey_ln!("So is this.");
+    e_dark_grey_ln!("This is {}.", "dark_grey");
+    e_dark_grey_ln!("So is this.");
+    e_red_ln!("This is {}.", "red");
+    e_red_ln!("So is this.");
+    e_dark_red_ln!("This is {}.", "dark_red");
+    e_dark_red_ln!("So is this.");
+    e_green_ln!("This is {}.", "green");
+    e_green_ln!("So is this.");
+    e_dark_green_ln!("This is {}.", "dark_green");
+    e_dark_green_ln!("So is this.");
+    e_yellow_ln!("This is {}.", "yellow");
+    e_yellow_ln!("So is this.");
+    e_dark_yellow_ln!("This is {}.", "dark_yellow");
+    e_dark_yellow_ln!("So is this.");
+    e_blue_ln!("This is {}.", "blue");
+    e_blue_ln!("So is this.");
+    e_dark_blue_ln!("This is {}.", "dark_blue");
+    e_dark_blue_ln!("So is this.");
+    e_magenta_ln!("This is {}.", "magenta");
+    e_magenta_ln!("So is this.");
+    e_dark_magenta_ln!("This is {}.", "dark_magenta");
+    e_dark_magenta_ln!("So is this.");
+    e_cyan_ln!("This is {}.", "cyan");
+    e_cyan_ln!("So is this.");
+    e_dark_cyan_ln!("This is {}.", "dark_cyan");
+    e_dark_cyan_ln!("So is this.");
+    e_white_ln!("This is {}.", "white");
+    e_white_ln!("So is this.");
+    e_black_ln!("This is {}.", "black");
+    e_black_ln!("So is this.");
+    e_prnt_ln!("This is {}.", "the default colour");
+    e_prnt_ln!("So is this.");
+
+    e_grey!("g");
+    e_grey!("{}, ", "rey");
+    e_dark_grey!("d");
+    e_dark_grey!("{}, ", "ark_grey");
+    e_red!("r");
+    e_red!("{}, ", "ed");
+    e_dark_red!("d");
+    e_dark_red!("{}, ", "ark_red");
+    e_green!("g");
+    e_green!("{}, ", "reen");
+    e_dark_green!("d");
+    e_dark_green!("{}, ", "ark_green");
+    e_yellow!("y");
+    e_yellow!("{}, ", "ellow");
+    e_dark_yellow!("d");
+    e_dark_yellow!("{}, ", "ark_yellow");
+    e_blue!("b");
+    e_blue!("{}, ", "lue");
+    e_dark_blue!("d");
+    e_dark_blue!("{}, ", "ark_blue");
+    e_magenta!("m");
+    e_magenta!("{}, ", "agenta");
+    e_dark_magenta!("d");
+    e_dark_magenta!("{}, ", "ark_magenta");
+    e_cyan!("c");
+    e_cyan!("{}, ", "yan");
+    e_dark_cyan!("d");
+    e_dark_cyan!("{}, ", "ark_cyan");
+    e_white!("w");
+    e_white!("{}, ", "hite");
+    e_black!("b");
+    e_black!("{}, ", "lack");
+    e_prnt!("d");
+    e_prnt!("efault {}", "colour\n\n");
 }
