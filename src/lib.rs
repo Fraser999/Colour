@@ -22,7 +22,7 @@
 //! Every variant also has a version with prefix `e_`.  Variants with this prefix output to stderr,
 //! while those without output to stdout.
 
-#![forbid(warnings)]
+#![deny(warnings, clippy::all, clippy::pedantic)]
 #![warn(
     missing_copy_implementations,
     trivial_casts,
@@ -34,7 +34,6 @@
     unused_results,
     variant_size_differences
 )]
-#![deny(clippy::all, clippy::pedantic)]
 
 /// Helpers and consts which should not be used directly outside of this crate.
 #[doc(hidden)]

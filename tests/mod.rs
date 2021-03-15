@@ -1,4 +1,4 @@
-#![forbid(warnings)]
+#![deny(warnings, clippy::all, clippy::pedantic)]
 #![warn(
     missing_copy_implementations,
     trivial_casts,
@@ -10,8 +10,8 @@
     unused_results,
     variant_size_differences
 )]
-#![deny(clippy::all, clippy::pedantic)]
 
+#[allow(clippy::wildcard_imports)]
 use colour::*;
 
 #[test]

@@ -60,5 +60,6 @@ fn all_colours() {
 
 ##  License
 
-`colour` is distributed under the terms of the General Public License (GPL), version 3
-([COPYING](COPYING) or http://www.gnu.org/licenses/gpl-3.0.en.html).
+`colour` is distributed under the terms of both the MIT license and the Apache License (Version 2.0).
+
+See [LICENSE-MIT](LICENSE-MIT) and [LICENSE-APACHE](LICENSE-APACHE) for details.
