@@ -1,87 +1,106 @@
-#![deny(warnings, clippy::all, clippy::pedantic)]
-#![warn(
-    missing_copy_implementations,
-    trivial_casts,
-    trivial_numeric_casts,
-    unsafe_code,
-    unused_extern_crates,
-    unused_import_braces,
-    unused_qualifications,
-    unused_results,
-    variant_size_differences
-)]
-
-#[allow(clippy::wildcard_imports)]
 use colour::*;
 
 #[test]
 fn stdout() {
     grey_ln!("This is {}.", "grey");
     grey_ln!("So is this.");
+    grey_ln!();
     dark_grey_ln!("This is {}.", "dark_grey");
     dark_grey_ln!("So is this.");
+    dark_grey_ln!();
     red_ln!("This is {}.", "red");
     red_ln!("So is this.");
+    red_ln!();
     dark_red_ln!("This is {}.", "dark_red");
     dark_red_ln!("So is this.");
+    dark_red_ln!();
     green_ln!("This is {}.", "green");
     green_ln!("So is this.");
+    green_ln!();
     dark_green_ln!("This is {}.", "dark_green");
     dark_green_ln!("So is this.");
+    dark_green_ln!();
     yellow_ln!("This is {}.", "yellow");
     yellow_ln!("So is this.");
+    yellow_ln!();
     dark_yellow_ln!("This is {}.", "dark_yellow");
     dark_yellow_ln!("So is this.");
+    dark_yellow_ln!();
     blue_ln!("This is {}.", "blue");
     blue_ln!("So is this.");
+    blue_ln!();
     dark_blue_ln!("This is {}.", "dark_blue");
     dark_blue_ln!("So is this.");
+    dark_blue_ln!();
     magenta_ln!("This is {}.", "magenta");
     magenta_ln!("So is this.");
+    magenta_ln!();
     dark_magenta_ln!("This is {}.", "dark_magenta");
     dark_magenta_ln!("So is this.");
+    dark_magenta_ln!();
     cyan_ln!("This is {}.", "cyan");
     cyan_ln!("So is this.");
+    cyan_ln!();
     dark_cyan_ln!("This is {}.", "dark_cyan");
     dark_cyan_ln!("So is this.");
+    dark_cyan_ln!();
     white_ln!("This is {}.", "white");
     white_ln!("So is this.");
+    white_ln!();
     black_ln!("This is {}.", "black");
     black_ln!("So is this.");
+    black_ln!();
     prnt_ln!("This is {}.", "the default colour");
     prnt_ln!("So is this.");
+    prnt_ln!();
 
     grey!("g");
+    grey!();
     grey!("{}, ", "rey");
     dark_grey!("d");
+    dark_grey!();
     dark_grey!("{}, ", "ark_grey");
     red!("r");
+    red!();
     red!("{}, ", "ed");
     dark_red!("d");
+    dark_red!();
     dark_red!("{}, ", "ark_red");
     green!("g");
+    green!();
     green!("{}, ", "reen");
     dark_green!("d");
+    dark_green!();
     dark_green!("{}, ", "ark_green");
     yellow!("y");
+    yellow!();
     yellow!("{}, ", "ellow");
     dark_yellow!("d");
+    dark_yellow!();
     dark_yellow!("{}, ", "ark_yellow");
     blue!("b");
+    blue!();
     blue!("{}, ", "lue");
     dark_blue!("d");
+    dark_blue!();
     dark_blue!("{}, ", "ark_blue");
     magenta!("m");
+    magenta!();
     magenta!("{}, ", "agenta");
     dark_magenta!("d");
+    dark_magenta!();
     dark_magenta!("{}, ", "ark_magenta");
     cyan!("c");
+    cyan!();
     cyan!("{}, ", "yan");
     dark_cyan!("d");
+    dark_cyan!();
     dark_cyan!("{}, ", "ark_cyan");
     white!("w");
+    white!();
     white!("{}, ", "hite");
     black!("b");
+    black!();
     black!("{}, ", "lack");
     prnt!("d");
     prnt!("efault {}", "colour\n\n");
@@ -91,70 +110,103 @@ fn stdout() {
 fn stderr() {
     e_grey_ln!("This is {}.", "grey");
     e_grey_ln!("So is this.");
+    e_grey_ln!();
     e_dark_grey_ln!("This is {}.", "dark_grey");
     e_dark_grey_ln!("So is this.");
+    e_dark_grey_ln!();
     e_red_ln!("This is {}.", "red");
     e_red_ln!("So is this.");
+    e_red_ln!();
     e_dark_red_ln!("This is {}.", "dark_red");
     e_dark_red_ln!("So is this.");
+    e_dark_red_ln!();
     e_green_ln!("This is {}.", "green");
     e_green_ln!("So is this.");
+    e_green_ln!();
     e_dark_green_ln!("This is {}.", "dark_green");
     e_dark_green_ln!("So is this.");
+    e_dark_green_ln!();
     e_yellow_ln!("This is {}.", "yellow");
     e_yellow_ln!("So is this.");
+    e_yellow_ln!();
     e_dark_yellow_ln!("This is {}.", "dark_yellow");
     e_dark_yellow_ln!("So is this.");
+    e_dark_yellow_ln!();
     e_blue_ln!("This is {}.", "blue");
     e_blue_ln!("So is this.");
+    e_blue_ln!();
     e_dark_blue_ln!("This is {}.", "dark_blue");
     e_dark_blue_ln!("So is this.");
+    e_dark_blue_ln!();
     e_magenta_ln!("This is {}.", "magenta");
     e_magenta_ln!("So is this.");
+    e_magenta_ln!();
     e_dark_magenta_ln!("This is {}.", "dark_magenta");
     e_dark_magenta_ln!("So is this.");
+    e_dark_magenta_ln!();
     e_cyan_ln!("This is {}.", "cyan");
     e_cyan_ln!("So is this.");
+    e_cyan_ln!();
     e_dark_cyan_ln!("This is {}.", "dark_cyan");
     e_dark_cyan_ln!("So is this.");
+    e_dark_cyan_ln!();
     e_white_ln!("This is {}.", "white");
     e_white_ln!("So is this.");
+    e_white_ln!();
     e_black_ln!("This is {}.", "black");
     e_black_ln!("So is this.");
+    e_black_ln!();
     e_prnt_ln!("This is {}.", "the default colour");
     e_prnt_ln!("So is this.");
+    e_prnt_ln!();
 
     e_grey!("g");
+    e_grey!();
     e_grey!("{}, ", "rey");
     e_dark_grey!("d");
+    e_dark_grey!();
     e_dark_grey!("{}, ", "ark_grey");
     e_red!("r");
+    e_red!();
     e_red!("{}, ", "ed");
     e_dark_red!("d");
+    e_dark_red!();
     e_dark_red!("{}, ", "ark_red");
     e_green!("g");
+    e_green!();
     e_green!("{}, ", "reen");
     e_dark_green!("d");
+    e_dark_green!();
     e_dark_green!("{}, ", "ark_green");
     e_yellow!("y");
+    e_yellow!();
     e_yellow!("{}, ", "ellow");
     e_dark_yellow!("d");
+    e_dark_yellow!();
     e_dark_yellow!("{}, ", "ark_yellow");
     e_blue!("b");
+    e_blue!();
     e_blue!("{}, ", "lue");
     e_dark_blue!("d");
+    e_dark_blue!();
     e_dark_blue!("{}, ", "ark_blue");
     e_magenta!("m");
+    e_magenta!();
     e_magenta!("{}, ", "agenta");
     e_dark_magenta!("d");
+    e_dark_magenta!();
     e_dark_magenta!("{}, ", "ark_magenta");
     e_cyan!("c");
+    e_cyan!();
     e_cyan!("{}, ", "yan");
     e_dark_cyan!("d");
+    e_dark_cyan!();
     e_dark_cyan!("{}, ", "ark_cyan");
     e_white!("w");
+    e_white!();
     e_white!("{}, ", "hite");
     e_black!("b");
+    e_black!();
     e_black!("{}, ", "lack");
     e_prnt!("d");
     e_prnt!("efault {}", "colour\n\n");
