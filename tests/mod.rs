@@ -1,3 +1,5 @@
+use std::io::Write as _;
+
 use colour::*;
 
 #[test]
@@ -222,86 +224,86 @@ fn readme_example() {
     let mut v = vec![];
 
     let err: Result<(), u8> = Err(1);
-    wrte_ln!(&mut v, "Failed on {}", 9);
-    write_yellow!(&mut v, "Error details: ");
-    write_red_ln!(&mut v, "{:?}", err);
+    wrte_ln!(&mut v, "Failed on {}", 9).unwrap();
+    write_yellow!(&mut v, "Error details: ").unwrap();
+    write_red_ln!(&mut v, "{:?}", err).unwrap();
 
-    wrte!(std::io::stdout(), "{}", String::from_utf8_lossy(&v))
+    wrte!(std::io::stdout(), "{}", String::from_utf8_lossy(&v)).unwrap();
 }
 
 #[test]
 fn write_stdout_with_newline() {
     readme_example();
-    write_grey_ln!(std::io::stdout(), "This is {}.", "grey");
-    write_grey_ln!(std::io::stdout(), "So is this.\n");
-    write_dark_grey_ln!(std::io::stdout(), "This is {}.", "dark_grey");
-    write_dark_grey_ln!(std::io::stdout(), "So is this.\n");
-    write_red_ln!(std::io::stdout(), "This is {}.", "red");
-    write_red_ln!(std::io::stdout(), "So is this.\n");
-    write_dark_red_ln!(std::io::stdout(), "This is {}.", "dark_red");
-    write_dark_red_ln!(std::io::stdout(), "So is this.\n");
-    write_green_ln!(std::io::stdout(), "This is {}.", "green");
-    write_green_ln!(std::io::stdout(), "So is this.\n");
-    write_dark_green_ln!(std::io::stdout(), "This is {}.", "dark_green");
-    write_dark_green_ln!(std::io::stdout(), "So is this.\n");
-    write_yellow_ln!(std::io::stdout(), "This is {}.", "yellow");
-    write_yellow_ln!(std::io::stdout(), "So is this.\n");
-    write_dark_yellow_ln!(std::io::stdout(), "This is {}.", "dark_yellow");
-    write_dark_yellow_ln!(std::io::stdout(), "So is this.\n");
-    write_blue_ln!(std::io::stdout(), "This is {}.", "blue");
-    write_blue_ln!(std::io::stdout(), "So is this.\n");
-    write_dark_blue_ln!(std::io::stdout(), "This is {}.", "dark_blue");
-    write_dark_blue_ln!(std::io::stdout(), "So is this.\n");
-    write_magenta_ln!(std::io::stdout(), "This is {}.", "magenta");
-    write_magenta_ln!(std::io::stdout(), "So is this.\n");
-    write_dark_magenta_ln!(std::io::stdout(), "This is {}.", "dark_magenta");
-    write_dark_magenta_ln!(std::io::stdout(), "So is this.\n");
-    write_cyan_ln!(std::io::stdout(), "This is {}.", "cyan");
-    write_cyan_ln!(std::io::stdout(), "So is this.\n");
-    write_dark_cyan_ln!(std::io::stdout(), "This is {}.", "dark_cyan");
-    write_dark_cyan_ln!(std::io::stdout(), "So is this.\n");
-    write_black_ln!(std::io::stdout(), "This is {}.", "black");
-    write_black_ln!(std::io::stdout(), "So is this.\n");
-    write_white_ln!(std::io::stdout(), "This is {}.", "white");
-    write_white_ln!(std::io::stdout(), "So is this.\n");
-    wrte_ln!(std::io::stdout(), "This is {}.", "the default colour");
-    wrte_ln!(std::io::stdout(), "So is this.\n");
+    write_grey_ln!(std::io::stdout(), "This is {}.", "grey").unwrap();
+    write_grey_ln!(std::io::stdout(), "So is this.\n").unwrap();
+    write_dark_grey_ln!(std::io::stdout(), "This is {}.", "dark_grey").unwrap();
+    write_dark_grey_ln!(std::io::stdout(), "So is this.\n").unwrap();
+    write_red_ln!(std::io::stdout(), "This is {}.", "red").unwrap();
+    write_red_ln!(std::io::stdout(), "So is this.\n").unwrap();
+    write_dark_red_ln!(std::io::stdout(), "This is {}.", "dark_red").unwrap();
+    write_dark_red_ln!(std::io::stdout(), "So is this.\n").unwrap();
+    write_green_ln!(std::io::stdout(), "This is {}.", "green").unwrap();
+    write_green_ln!(std::io::stdout(), "So is this.\n").unwrap();
+    write_dark_green_ln!(std::io::stdout(), "This is {}.", "dark_green").unwrap();
+    write_dark_green_ln!(std::io::stdout(), "So is this.\n").unwrap();
+    write_yellow_ln!(std::io::stdout(), "This is {}.", "yellow").unwrap();
+    write_yellow_ln!(std::io::stdout(), "So is this.\n").unwrap();
+    write_dark_yellow_ln!(std::io::stdout(), "This is {}.", "dark_yellow").unwrap();
+    write_dark_yellow_ln!(std::io::stdout(), "So is this.\n").unwrap();
+    write_blue_ln!(std::io::stdout(), "This is {}.", "blue").unwrap();
+    write_blue_ln!(std::io::stdout(), "So is this.\n").unwrap();
+    write_dark_blue_ln!(std::io::stdout(), "This is {}.", "dark_blue").unwrap();
+    write_dark_blue_ln!(std::io::stdout(), "So is this.\n").unwrap();
+    write_magenta_ln!(std::io::stdout(), "This is {}.", "magenta").unwrap();
+    write_magenta_ln!(std::io::stdout(), "So is this.\n").unwrap();
+    write_dark_magenta_ln!(std::io::stdout(), "This is {}.", "dark_magenta").unwrap();
+    write_dark_magenta_ln!(std::io::stdout(), "So is this.\n").unwrap();
+    write_cyan_ln!(std::io::stdout(), "This is {}.", "cyan").unwrap();
+    write_cyan_ln!(std::io::stdout(), "So is this.\n").unwrap();
+    write_dark_cyan_ln!(std::io::stdout(), "This is {}.", "dark_cyan").unwrap();
+    write_dark_cyan_ln!(std::io::stdout(), "So is this.\n").unwrap();
+    write_black_ln!(std::io::stdout(), "This is {}.", "black").unwrap();
+    write_black_ln!(std::io::stdout(), "So is this.\n").unwrap();
+    write_white_ln!(std::io::stdout(), "This is {}.", "white").unwrap();
+    write_white_ln!(std::io::stdout(), "So is this.\n").unwrap();
+    wrte_ln!(std::io::stdout(), "This is {}.", "the default colour").unwrap();
+    wrte_ln!(std::io::stdout(), "So is this.\n").unwrap();
 }
 
 #[test]
 fn write_stdout_no_newline() {
-    write_grey!(std::io::stdout(), "g");
-    write_grey!(std::io::stdout(), "{}, ", "rey");
-    write_dark_grey!(std::io::stdout(), "d");
-    write_dark_grey!(std::io::stdout(), "{}, ", "ark_grey");
-    write_red!(std::io::stdout(), "r");
-    write_red!(std::io::stdout(), "{}, ", "ed");
-    write_dark_red!(std::io::stdout(), "d");
-    write_dark_red!(std::io::stdout(), "{}, ", "ark_red");
-    write_green!(std::io::stdout(), "g");
-    write_green!(std::io::stdout(), "{}, ", "reen");
-    write_dark_green!(std::io::stdout(), "d");
-    write_dark_green!(std::io::stdout(), "{}, ", "ark_green");
-    write_yellow!(std::io::stdout(), "y");
-    write_yellow!(std::io::stdout(), "{}, ", "ellow");
-    write_dark_yellow!(std::io::stdout(), "d");
-    write_dark_yellow!(std::io::stdout(), "{}, ", "ark_yellow");
-    write_blue!(std::io::stdout(), "b");
-    write_blue!(std::io::stdout(), "{}, ", "lue");
-    write_dark_blue!(std::io::stdout(), "d");
-    write_dark_blue!(std::io::stdout(), "{}, ", "ark_blue");
-    write_magenta!(std::io::stdout(), "m");
-    write_magenta!(std::io::stdout(), "{}, ", "agenta");
-    write_dark_magenta!(std::io::stdout(), "d");
-    write_dark_magenta!(std::io::stdout(), "{}, ", "ark_magenta");
-    write_cyan!(std::io::stdout(), "c");
-    write_cyan!(std::io::stdout(), "{}, ", "yan");
-    write_dark_cyan!(std::io::stdout(), "d");
-    write_dark_cyan!(std::io::stdout(), "{}, ", "ark_cyan");
-    write_black!(std::io::stdout(), "b");
-    write_black!(std::io::stdout(), "{}, ", "lack");
-    write_white!(std::io::stdout(), "w");
-    write_white!(std::io::stdout(), "{}, ", "hite");
-    wrte!(std::io::stdout(), "d");
-    wrte!(std::io::stdout(), "efault {}", "colour\n\n");
+    write_grey!(std::io::stdout(), "g").unwrap();
+    write_grey!(std::io::stdout(), "{}, ", "rey").unwrap();
+    write_dark_grey!(std::io::stdout(), "d").unwrap();
+    write_dark_grey!(std::io::stdout(), "{}, ", "ark_grey").unwrap();
+    write_red!(std::io::stdout(), "r").unwrap();
+    write_red!(std::io::stdout(), "{}, ", "ed").unwrap();
+    write_dark_red!(std::io::stdout(), "d").unwrap();
+    write_dark_red!(std::io::stdout(), "{}, ", "ark_red").unwrap();
+    write_green!(std::io::stdout(), "g").unwrap();
+    write_green!(std::io::stdout(), "{}, ", "reen").unwrap();
+    write_dark_green!(std::io::stdout(), "d").unwrap();
+    write_dark_green!(std::io::stdout(), "{}, ", "ark_green").unwrap();
+    write_yellow!(std::io::stdout(), "y").unwrap();
+    write_yellow!(std::io::stdout(), "{}, ", "ellow").unwrap();
+    write_dark_yellow!(std::io::stdout(), "d").unwrap();
+    write_dark_yellow!(std::io::stdout(), "{}, ", "ark_yellow").unwrap();
+    write_blue!(std::io::stdout(), "b").unwrap();
+    write_blue!(std::io::stdout(), "{}, ", "lue").unwrap();
+    write_dark_blue!(std::io::stdout(), "d").unwrap();
+    write_dark_blue!(std::io::stdout(), "{}, ", "ark_blue").unwrap();
+    write_magenta!(std::io::stdout(), "m").unwrap();
+    write_magenta!(std::io::stdout(), "{}, ", "agenta").unwrap();
+    write_dark_magenta!(std::io::stdout(), "d").unwrap();
+    write_dark_magenta!(std::io::stdout(), "{}, ", "ark_magenta").unwrap();
+    write_cyan!(std::io::stdout(), "c").unwrap();
+    write_cyan!(std::io::stdout(), "{}, ", "yan").unwrap();
+    write_dark_cyan!(std::io::stdout(), "d").unwrap();
+    write_dark_cyan!(std::io::stdout(), "{}, ", "ark_cyan").unwrap();
+    write_black!(std::io::stdout(), "b").unwrap();
+    write_black!(std::io::stdout(), "{}, ", "lack").unwrap();
+    write_white!(std::io::stdout(), "w").unwrap();
+    write_white!(std::io::stdout(), "{}, ", "hite").unwrap();
+    wrte!(std::io::stdout(), "d").unwrap();
+    wrte!(std::io::stdout(), "efault {}", "colour\n\n").unwrap();
 }

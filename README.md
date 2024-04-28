@@ -229,6 +229,8 @@ fn foo() {
 }
 
 fn bar() {
+    use std::io::Write as _;
+
     let mut v = vec![];
     let err: Result<(), u8> = Err(1);
     wrte_ln!(&mut v, "Failed on {}", 9);

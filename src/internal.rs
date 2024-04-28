@@ -3,11 +3,8 @@ use std::{
     io::{self, Write},
 };
 
-use crossterm::{
-    self,
-    style::{Color, SetForegroundColor},
-    QueueableCommand,
-};
+use crossterm::{self, style::Color};
+pub use crossterm::{style::SetForegroundColor, QueueableCommand};
 
 pub type Colour = Color;
 

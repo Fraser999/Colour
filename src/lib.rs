@@ -151,13 +151,28 @@ macro_rules! make_write_macro {
         #[macro_export]
         macro_rules! $name {
             ($dollar dst:expr, $dollar($dollar args:tt)*) => {
-                $crate::internal::write::<_, $newline>(
-                    $dollar dst,
-                    stringify!($dollar dst),
-                    $crate::internal::Colour::$colour,
-                    Some(format_args!($dollar($dollar args)*))
-                )
-            };
+                {
+                    use $crate::internal::QueueableCommand;
+                    $dollar dst.queue($crate::internal::SetForegroundColor($crate::internal::Colour::$colour))
+                    .map(|_| ())
+                    .and_then(|_| {
+                        $dollar dst.write_fmt(format_args!($dollar($dollar args)*))
+                    })
+                    .and_then(|_| {
+                        if $newline {
+                            $dollar dst.write(b"\n").map(|_| ())
+                        } else {
+                            Ok(())
+                        }
+                    })
+                    .and_then(|_| {
+                        $dollar dst.queue($crate::internal::SetForegroundColor($crate::internal::Colour::Reset)).map(|_| ())
+                    })
+                    .and_then(|_| {
+                        $dollar dst.flush()
+                    })
+                }
+            }
         }
     };
 }
