@@ -37,5 +37,6 @@ fn do_write<T: Write, const NEWLINE: bool>(
         writeln!(output)?;
     }
 
+    let _ = output.queue(SetForegroundColor(Colour::Reset))?;
     output.flush()
 }
