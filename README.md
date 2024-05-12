@@ -7,7 +7,7 @@ Macros for creating coloured console output.
 To view the colour palette:
 
 ```sh
-cargo test print_stdout_no_newline
+cargo run --example println
 ```
 
 The following macros are provided:
@@ -70,6 +70,12 @@ The following macros are provided:
     <td><code>dark_grey!</code></td>
     <td><code>grey_ln!</code></td>
     <td><code>dark_grey_ln!</code></td>
+  </tr>
+  <tr>
+    <td><code>gray!</code></td>
+    <td><code>dark_gray!</code></td>
+    <td><code>gray_ln!</code></td>
+    <td><code>dark_gray_ln!</code></td>
   </tr>
   <tr>
     <td><code>white!</code></td>
@@ -139,6 +145,12 @@ The following macros are provided:
     <td><code>e_dark_grey_ln!</code></td>
   </tr>
   <tr>
+    <td><code>e_gray!</code></td>
+    <td><code>e_dark_gray!</code></td>
+    <td><code>e_gray_ln!</code></td>
+    <td><code>e_dark_gray_ln!</code></td>
+  </tr>
+  <tr>
     <td><code>e_white!</code></td>
     <td>N/A</td>
     <td><code>e_white_ln!</code></td>
@@ -206,6 +218,12 @@ The following macros are provided:
     <td><code>write_dark_grey_ln!</code></td>
   </tr>
   <tr>
+    <td><code>write_gray!</code></td>
+    <td><code>write_dark_gray!</code></td>
+    <td><code>write_gray_ln!</code></td>
+    <td><code>write_dark_gray_ln!</code></td>
+  </tr>
+  <tr>
     <td><code>write_white!</code></td>
     <td>N/A</td>
     <td><code>write_white_ln!</code></td>
@@ -213,55 +231,85 @@ The following macros are provided:
   </tr>
 </table>
 
-There are also `prnt!`, `prnt_ln!`, `wrte!` and `wrte_ln!` available which use the current default
-foreground colour.
+All of these macros are available with bold formatting by appending `_bold` (for example
+`blue_ln_bold`). 
+
+There following macros which use the default foreground colour are also available:
+- `print_bold!`
+- `eprint_bold!` and `e_print_bold!`
+- `println_bold!` and `print_ln_bold!`
+- `eprintln_bold!` and `e_print_ln_bold!`
+- `write_bold!`
+- `writeln_bold!`
+
+## Configuration
+
+The crate follows the recommendations in
+[Standard for ANSI Colors in Terminals](http://bixense.com/clicolors), meaning that the environment
+variables `NO_COLOR` and `CLICOLOR_FORCE` are respected.  The library acts as if `CLICOLOR` is set,
+so that environment variable has no effect.
+
+### Usage in Binaries
+
+Binaries can override these environment variables and the automatic detection of a terminal/tty by
+calling `force_colour` or `force_no_colour`.  The binary should call only one of these, and the call
+should happen before any potential calls to any of the macros this crate provides.
+
+Libraries should generally never call these functions.
 
 ## Example
 
 ```rust
 use colour::*;
 
-fn foo() {
+fn _foo() {
     let err: Result<(), u8> = Err(1);
-    prnt_ln!("Failed on {}", 9);
-    yellow!("Error details: ");
-    red_ln!("{:?}", err);
-}
-
-fn bar() {
-    use std::io::Write as _;
-
-    let mut v = vec![];
-    let err: Result<(), u8> = Err(1);
-    wrte_ln!(&mut v, "Failed on {}", 9);
-    write_yellow!(&mut v, "Error details: ");
-    write_red_ln!(&mut v, "{:?}", err);
+    yellow_ln!("Failed on {}", 9);
+    print!("Error details: ");
+    dark_red_ln_bold!("{:?}", err);
 }
 
 fn main() {
-    black!("black ");
-    red!("red ");
-    green!("green ");
-    yellow!("yellow ");
-    blue!("blue ");
-    magenta!("magenta ");
-    cyan!("cyan ");
-    grey!("grey ");
-    white!("white ");
-    dark_red!("dark_red ");
-    dark_green!("dark_green ");
-    dark_yellow!("dark_yellow ");
-    dark_blue!("dark_blue ");
-    dark_magenta!("dark_magenta ");
-    dark_cyan!("dark_cyan ");
-    dark_grey!("dark_grey ");
-    prnt!("default colour\n\n");
+    grey_ln!("grey");
+    grey_ln_bold!("bold grey");
+    dark_grey_ln!("dark grey");
+    dark_grey_ln_bold!("bold dark grey");
+    red_ln!("red");
+    red_ln_bold!("bold red");
+    dark_red_ln!("dark red");
+    dark_red_ln_bold!("bold dark red");
+    green_ln!("green");
+    green_ln_bold!("bold green");
+    dark_green_ln!("dark green");
+    dark_green_ln_bold!("bold dark green");
+    yellow_ln!("yellow");
+    yellow_ln_bold!("bold yellow");
+    dark_yellow_ln!("dark yellow");
+    dark_yellow_ln_bold!("bold dark yellow");
+    blue_ln!("blue");
+    blue_ln_bold!("bold blue");
+    dark_blue_ln!("dark blue");
+    dark_blue_ln_bold!("bold dark blue");
+    magenta_ln!("magenta");
+    magenta_ln_bold!("bold magenta");
+    dark_magenta_ln!("dark magenta");
+    dark_magenta_ln_bold!("bold dark magenta");
+    cyan_ln!("cyan");
+    cyan_ln_bold!("bold cyan");
+    dark_cyan_ln!("dark cyan");
+    dark_cyan_ln_bold!("bold dark cyan");
+    black_ln!("black");
+    black_ln_bold!("bold black");
+    white_ln!("white");
+    white_ln_bold!("bold white");
+    println!("default colour");
+    println_bold!("bold default colour");
 }
 ```
 
 ## Minimum Rust Version
 
-The crate can be compiled with Rust versions 1.58.0 and newer.
+The crate can be compiled with Rust versions 1.70.0 and newer.
 
 ##  License
 
