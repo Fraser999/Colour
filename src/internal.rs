@@ -87,7 +87,10 @@ pub fn should_colour() -> bool {
 fn initialise_from_env() -> bool {
     if env_var_is_set_and_not_empty_string("NO_COLOR") {
         false
-    } else if env_var_is_set_and_not_empty_string("CLICOLOR_FORCE") {
+    } else if env_var_is_set_and_not_empty_string("CLICOLOR_FORCE")
+        || enabled_virtual_terminal()
+        || term_env_var_is_set_and_not_dumb()
+    {
         true
     } else {
         io::stdout().is_terminal()
@@ -99,4 +102,57 @@ fn env_var_is_set_and_not_empty_string(var: &str) -> bool {
         return false;
     };
     !value.is_empty()
+}
+
+#[cfg(windows)]
+fn enabled_virtual_terminal() -> bool {
+    use std::ptr;
+    use winapi::um::{
+        consoleapi::{GetConsoleMode, SetConsoleMode},
+        fileapi::{CreateFileW, OPEN_EXISTING},
+        handleapi::INVALID_HANDLE_VALUE,
+        wincon::ENABLE_VIRTUAL_TERMINAL_PROCESSING,
+        winnt::{FILE_SHARE_READ, FILE_SHARE_WRITE, GENERIC_READ, GENERIC_WRITE},
+    };
+
+    let name = "CONOUT$\0".encode_utf16().collect::<Vec<u16>>();
+
+    unsafe {
+        let handle = CreateFileW(
+            name.as_ptr(),
+            GENERIC_READ | GENERIC_WRITE,
+            FILE_SHARE_READ | FILE_SHARE_WRITE,
+            ptr::null_mut(),
+            OPEN_EXISTING,
+            0,
+            ptr::null_mut(),
+        );
+
+        if handle == INVALID_HANDLE_VALUE {
+            return false;
+        }
+
+        // Get the current console mode.
+        let mut mode = 0;
+        if GetConsoleMode(handle, &mut mode) == 0 {
+            return false;
+        }
+
+        // If it already has virtual terminal enabled, return success.
+        if mode & ENABLE_VIRTUAL_TERMINAL_PROCESSING != 0 {
+            return true;
+        }
+
+        // Otherwise, try and enable virtual terminal mode.
+        SetConsoleMode(handle, mode | ENABLE_VIRTUAL_TERMINAL_PROCESSING) != 0
+    }
+}
+
+#[cfg(not(windows))]
+fn enabled_virtual_terminal() -> bool {
+    false
+}
+
+fn term_env_var_is_set_and_not_dumb() -> bool {
+    env::var("TERM").map_or(false, |var| var != "dumb")
 }

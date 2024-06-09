@@ -11,6 +11,16 @@ The format is based on [Keep a Changelog], and this project adheres to [Semantic
 [comment]: <> (Fixed:      any bug fixes)
 [comment]: <> (Security:   in case of vulnerabilities)
 
+## [2.1.0] - 2024-06-10
+
+## Added
+
+- Add support for Windows 10 and greater.
+- Add support for `TERM` environment variable: if set to `dumb` disables
+  coloured output, if set to any other value enables coloured output. `NO_COLOR`
+  `CLICOLOR_FORCE` both override this behaviour.
+- Add changelog.
+
 ## [2.0.0] - 2024-05-13
 
 ### Added
@@ -123,6 +133,7 @@ The format is based on [Keep a Changelog], and this project adheres to [Semantic
 - Initial set of coloured macros.
 
 [unreleased]: https://github.com/Fraser999/Colour/compare/v2.0.0...HEAD
+[2.1.0]: https://github.com/Fraser999/Colour/compare/v2.0.0...v2.1.0
 [2.0.0]: https://github.com/Fraser999/Colour/compare/v1.1.0...v2.0.0
 [1.1.0]: https://github.com/Fraser999/Colour/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/Fraser999/Colour/compare/v0.7.0...v1.0.0

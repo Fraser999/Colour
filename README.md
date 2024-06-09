@@ -249,6 +249,11 @@ The crate follows the recommendations in
 variables `NO_COLOR` and `CLICOLOR_FORCE` are respected.  The library acts as if `CLICOLOR` is set,
 so that environment variable has no effect.
 
+The environment variable `TERM` is also considered: if set to `dumb`, coloured output is disabled,
+and if set to any other value, coloured output is enabled.
+
+The order of precedence is `NO_COLOR`, followed by `CLICOLOR_FORCE` and then `TERM`.
+
 ### Usage in Binaries
 
 Binaries can override these environment variables and the automatic detection of a terminal/tty by

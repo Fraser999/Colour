@@ -10,7 +10,7 @@ name = "colour"
 readme = "README.md"
 repository = "https://github.com/Fraser999/Colour.git"
 rust-version = "1.70.0"
-version = "2.0.0"
+version = "2.1.0"
 
 [[example]]
 name = "println"
@@ -19,3 +19,6 @@ path = "examples/println.rs"
 [[example]]
 name = "rectangle"
 path = "examples/rectangle.rs"
+
+[target.'cfg(windows)'.dependencies]
+winapi = { version = "0.3.9", features = ["consoleapi", "fileapi", "handleapi", "wincon", "winnt"] }
